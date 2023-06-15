@@ -1,15 +1,30 @@
+import { FC, ReactElement } from 'react';
 import React from 'react';
 import styled from 'styled-components';
 
-// <HomeButton title='', img='', icon=''/>
+interface HomeButtonProps {
+	className?: string;
+	title?: string;
+	img?: string;
+	icon?: ReactElement;
+	link?: string;
+}
 
-const HomeButtonComp = ({ className, title, img, icon }) => {
+const HomeButtonComp: FC<HomeButtonProps> = ({ className, title, img, icon, link }) => {
 	return (
 		<>
-			<a href="#" className={className}>
+			<a
+				href={link}
+				className={className}
+			>
 				<button>
 					{icon && icon}
-					{img && <img src={img} />}
+					{img && (
+						<img
+							src={img}
+							alt={title}
+						/>
+					)}
 					<h3>{title}</h3>
 				</button>
 			</a>

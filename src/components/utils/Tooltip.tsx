@@ -1,14 +1,28 @@
-import { useState } from 'react';
+import { useState, FC, ReactNode } from 'react';
 import styled from 'styled-components';
 
-const TooltipComp = ({ className, text, children, direction }) => {
+interface TooltipProps {
+	className?: string;
+	text: string;
+	direction?: string;
+	children: ReactNode;
+}
+
+const TooltipComp: FC<TooltipProps> = ({ className, text, children, direction }) => {
 	const [show, setShow] = useState(0);
 	const showState = { opacity: show };
 
 	return (
-		<div className={className} onMouseEnter={() => setShow(1)} onMouseLeave={() => setShow(0)}>
+		<div
+			className={className}
+			onMouseEnter={() => setShow(1)}
+			onMouseLeave={() => setShow(0)}
+		>
 			{children}
-			<div className={`tool-tip ${direction || 'top'}`} style={showState}>
+			<div
+				className={`tool-tip ${direction || 'top'}`}
+				style={showState}
+			>
 				{text}
 			</div>
 		</div>
@@ -20,7 +34,6 @@ const Tooltip = styled(TooltipComp)`
 	position: relative;
 
 	.tool-tip {
-		opacity: ${(props) => (props.show ? 1 : 0)};
 		position: absolute;
 		border-radius: 4px;
 		left: 50%;

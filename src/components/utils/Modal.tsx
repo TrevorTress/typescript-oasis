@@ -1,10 +1,24 @@
+import { useState, FC, ReactNode } from 'react';
 import styled from 'styled-components';
 import BSModal from 'react-bootstrap/Modal';
 
-const ModalComp = ({ className, title, description, showHandler, hideHandler }) => {
+interface ModalProps {
+	className?: string;
+	title?: string;
+	description?: string;
+	showHandler?: boolean;
+	hideHandler?: () => void;
+}
+
+const ModalComp: FC<ModalProps> = ({ className, title, description, showHandler, hideHandler }) => {
 	return (
 		// show and hide functions are passed to parent element as props
-		<BSModal className={className} show={showHandler} onHide={hideHandler} centered>
+		<BSModal
+			className={className}
+			show={showHandler}
+			onHide={hideHandler}
+			centered
+		>
 			<BSModal.Header closeButton>
 				<BSModal.Title>{title}</BSModal.Title>
 			</BSModal.Header>
