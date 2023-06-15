@@ -1,13 +1,10 @@
 // packages
-import { useState, FC } from 'react';
+import { FC } from 'react';
 import styled from 'styled-components';
 
 // icons
-import { FaHome, FaClipboardList, FaBookOpen, FaGithub, FaCpanel, FaRobot, FaChartBar } from 'react-icons/fa';
-import { BsPencil } from 'react-icons/bs';
+import { FaGithub, FaCpanel, FaRobot, FaChartBar } from 'react-icons/fa';
 import { MdSyncProblem, MdOutlineScreenSearchDesktop } from 'react-icons/md';
-import { RiFileList3Line } from 'react-icons/ri';
-import { TbTrafficCone } from 'react-icons/tb';
 import { VscSymbolMisc } from 'react-icons/vsc';
 
 interface NavbarProps {
@@ -15,12 +12,8 @@ interface NavbarProps {
 }
 
 const NavbarComp: FC<NavbarProps> = ({ className }) => {
-	const [navDisplay, setNavDisplay] = useState('flex');
 	return (
-		<nav
-			className={className}
-			style={{ display: navDisplay }}
-		>
+		<nav className={className}>
 			<a
 				href="https://github.com/"
 				target="blank"
@@ -62,7 +55,7 @@ const NavbarComp: FC<NavbarProps> = ({ className }) => {
 					<VscSymbolMisc size={50} />
 				</button>
 			</a>
-			<a>
+			<a href="/">
 				<button
 					className="nav-button"
 					style={{ background: '#ff9393' }}
@@ -99,6 +92,7 @@ const NavbarComp: FC<NavbarProps> = ({ className }) => {
 const Navbar = styled(NavbarComp)`
 	z-index: 10;
 	position: relative;
+	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	top: var(--header-height);

@@ -1,17 +1,34 @@
-import { useState, useEffect, useNavigate, useRef } from 'react';
+import { useState, useEffect, useRef, RefObject, FC, ReactNode } from 'react';
 import Fuse from 'fuse.js';
 import styled from 'styled-components';
 import { FaSearch } from 'react-icons/fa';
-import PropTypes from 'prop-types';
 
 import data from './search-data/-SafetyData';
 
+interface SearchResultItem {
+	link: string;
+	color: string;
+	tab: string;
+	section: string;
+	page: string;
+}
+
+interface SearchProps {
+	className?: string;
+}
+interface SearchBlurProps {
+	children?: ReactNode;
+}
+
 // function for our SearchBlur component (to hide results if you click away)
-function useSearchBlur(ref) {
+function useSearchBlur(ref: RefObject<HTMLDivElement>) {
 	useEffect(() => {
-		function handleOutsideClick(event) {
-			if (ref.current && !ref.current.contains(event.target)) {
-				document.getElementById('results').style.display = 'none';
+		function handleOutsideClick(event: MouseEvent) {
+			if (ref.current && !ref.current.contains(event.target as Node)) {
+				const results = document.getElementById('results');
+				if (results) {
+					results.style.display = 'none';
+				}
 			}
 		}
 
@@ -22,39 +39,37 @@ function useSearchBlur(ref) {
 	}, [ref]);
 }
 // SearchBlur component
-const SearchBlur = (props) => {
-	const wrapperRef = useRef(null);
+const SearchBlur: FC<SearchBlurProps> = ({ children }) => {
+	const wrapperRef = useRef<HTMLDivElement>(null);
 	useSearchBlur(wrapperRef);
 
-	return <div ref={wrapperRef}>{props.children}</div>;
-};
-
-// prop specifications for SearchBlur
-SearchBlur.propTypes = {
-	children: PropTypes.element.isRequired,
+	return <div ref={wrapperRef}>{children}</div>;
 };
 
 // fuse config options
-const options = {
+const options: Fuse.IFuseOptions<any> = {
 	keys: ['tab', 'page'],
 	minMatchCharLength: 2,
 	threshold: 0.3,
-	limit: 8,
 };
 
 // search bar component
-const Search = ({ className }) => {
+const Search: FC<SearchProps> = ({ className }) => {
 	const [searchTerm, setSearchTerm] = useState('');
-	const [results, setResults] = useState([]);
+	const [results, setResults] = useState<SearchResultItem[]>([]);
 
-	const handleSearch = (e) => {
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.target;
 		setSearchTerm(value);
 
-		const fuse = new Fuse(data, options);
-		const result = fuse.search(value);
-		setResults(result);
-		document.getElementById('results').style.display = 'block';
+		const fuse = new Fuse<SearchResultItem>(data, options);
+		const results = fuse.search(value) as Fuse.FuseResult<SearchResultItem>[];
+		const formattedResults = results.map((result) => result.item);
+		setResults(formattedResults);
+		const resultsElement = document.getElementById('results');
+		if (resultsElement) {
+			resultsElement.style.display = 'block';
+		}
 	};
 
 	return (
@@ -70,7 +85,7 @@ const Search = ({ className }) => {
 					/>
 					{results.length > 0 && (
 						<ul id="results">
-							{results.map(({ item }) => {
+							{results.map((item) => {
 								return (
 									<li>
 										<a

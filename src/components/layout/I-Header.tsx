@@ -27,7 +27,12 @@ const HeaderComp: FC<HeaderProps> = ({ className, login, title }) => {
 					<a
 						className="header-logo mb-md-0 me-md-auto"
 						href="/"
-					></a>
+					>
+						<img
+							src=""
+							alt="header-logo"
+						/>
+					</a>
 				</div>
 
 				<div className="header-right">

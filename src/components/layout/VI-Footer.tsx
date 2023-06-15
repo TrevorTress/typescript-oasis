@@ -4,7 +4,6 @@ import styled from 'styled-components';
 
 // icons
 import logo from './assets/footer-logo.png';
-import { BsFillTelephoneFill } from 'react-icons/bs';
 interface FooterProps {
 	className?: string;
 }
