@@ -1,19 +1,33 @@
+import { FC } from 'react';
+
 import BSCarousel from 'react-bootstrap/Carousel';
 import styled from 'styled-components';
 import photo from './assets/landscape.webp';
 
-const CarouselComp = ({ className }) => {
+interface CarouselProps {
+	className?: string;
+}
+
+const CarouselComp: FC<CarouselProps> = ({ className }) => {
 	return (
 		<BSCarousel className={className}>
 			<BSCarousel.Item>
-				<img className="d-block w-100" src={photo} alt="First slide" />
+				<img
+					className="d-block w-100"
+					src={photo}
+					alt="First slide"
+				/>
 				<BSCarousel.Caption>
 					<h3>STEP 1</h3>
 					<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 				</BSCarousel.Caption>
 			</BSCarousel.Item>
 			<BSCarousel.Item>
-				<img className="d-block w-100" src={photo} alt="Second slide" />
+				<img
+					className="d-block w-100"
+					src={photo}
+					alt="Second slide"
+				/>
 
 				<BSCarousel.Caption>
 					<h3>STEP 2</h3>
@@ -21,7 +35,11 @@ const CarouselComp = ({ className }) => {
 				</BSCarousel.Caption>
 			</BSCarousel.Item>
 			<BSCarousel.Item>
-				<img className="d-block w-100" src={photo} alt="Third slide" />
+				<img
+					className="d-block w-100"
+					src={photo}
+					alt="Third slide"
+				/>
 
 				<BSCarousel.Caption>
 					<h3>STEP 3</h3>

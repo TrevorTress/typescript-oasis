@@ -1,5 +1,4 @@
 // packages
-import { FC } from 'react';
 import styled from 'styled-components';
 
 // nested components
@@ -18,7 +17,7 @@ interface HeaderProps {
 }
 
 // header content and logic
-const HeaderComp: FC<HeaderProps> = ({ className, login, title }) => {
+const HeaderComp: React.FC<HeaderProps> = ({ className, login, title }) => {
 	return (
 		<>
 			<Helmet title={title ? title : 'Development Oasis'} />
